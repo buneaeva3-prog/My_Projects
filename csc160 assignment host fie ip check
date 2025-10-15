@@ -1,0 +1,33 @@
+# check_hosts.py
+
+# Input hosts file (you can change this name)
+hosts_file = "hosts.txt"
+# Output results file
+output_file = "result.csv"
+
+import time
+
+# Read all hosts into memory
+with open(hosts_file, "r") as file:
+    hosts_data = file.read()
+
+# Open result file for writing
+with open(output_file, "w") as result:
+    # Write header
+    result.write("IP,Hosts file?\n")
+    
+    # Nested loops for both IP ranges
+    for i in range(10, 12):  # 10 and 11
+        #print(i)
+        for j in range(1, 255):  # 1 to 254 inclusive
+            si = str(i)
+            sj = str(j)
+            ip = f"172.16." + si + "." + sj
+            if ip in hosts_data:
+                status = "Successful"
+            else:
+                status = "Failed"
+            result.write(f"{ip},{status}\n")
+            print(ip + " " + status)
+            time.sleep(1)  
+print('Inside of inneloop')
